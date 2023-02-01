@@ -1,0 +1,27 @@
+{
+    "name": "cndrsdrmn/laravel-auth-passwords",
+    "description": "This repo overrides the core illuminate/auth/passwords.",
+    "license": "MIT",
+    "require": {
+        "php": "^8.0.2",
+        "illuminate/auth": "^9.49"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.19",
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cndrsdrmn\\Passwords\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
