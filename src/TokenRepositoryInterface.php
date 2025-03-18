@@ -1,26 +1,16 @@
 <?php
 
-namespace Cndrsdrmn\Passwords;
+declare(strict_types=1);
 
-use Illuminate\Auth\Passwords\TokenRepositoryInterface as BaseTokenRepositoryInterface;
-use Illuminate\Contracts\Auth\CanResetPassword;
+namespace Cndrsdrmn\LaravelPasswords;
 
-interface TokenRepositoryInterface extends BaseTokenRepositoryInterface
+use Illuminate\Auth\Passwords\TokenRepositoryInterface as IlluminateTokenRepositoryInterface;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+
+interface TokenRepositoryInterface extends IlluminateTokenRepositoryInterface
 {
     /**
-     * Determine if a token record exists and is used.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
-     * @return bool
+     * Mark a token of password resets is verified.
      */
-    public function ensureIsUsed(CanResetPassword $user, string $token): bool;
-
-    /**
-     * Mark a token of password resets is used.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @return int
-     */
-    public function markAsUsed(CanResetPassword $user): int;
+    public function markVerified(CanResetPasswordContract $user, string $token): bool;
 }

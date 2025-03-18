@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    treatPhpDocTypesAsCertain: false
+
+    level: max
+
+    paths:
+        - src
+
+    excludePaths:
+        - src/BrokerManager.php

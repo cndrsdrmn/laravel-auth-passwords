@@ -1,27 +1,67 @@
 {
     "name": "cndrsdrmn/laravel-auth-passwords",
-    "description": "This repo overrides the core illuminate/auth/passwords.",
+    "description": "This repository will overrides the core of illuminate/auth/passwords.",
+    "keywords": ["laravel", "auth", "auth-reset-passwords"],
+    "homepage": "https://github.com/cndrsdrmn/laravel-auth-passwords",
+    "support": {
+        "issues": "https://github.com/cndrsdrmn/laravel-auth-passwords/issues"
+    },
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Candra Sudirman",
+            "email": "dev.cndrsdrmn@gmail.com"
+        }
+    ],
     "require": {
-        "php": "^8.0.2",
-        "illuminate/auth": "^9.49"
+        "php": "^8.3",
+        "cndrsdrmn/php-string-formatter": "^0.2.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.19",
-        "phpunit/phpunit": "^9.5",
-        "mockery/mockery": "^1.5"
+        "larastan/larastan": "^3.2",
+        "laravel/pint": "^1.21",
+        "orchestra/testbench": "^10.1",
+        "pestphp/pest": "^3.7",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "Cndrsdrmn\\Passwords\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+            "Cndrsdrmn\\LaravelPasswords\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cndrsdrmn\\LaravelPasswords\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "lint": "pint",
+        "refactor": "rector",
+        "test:lint": "pint --test",
+        "test:refactor": "rector --dry-run",
+        "test:types": "phpstan analyse --ansi --memory-limit=1G",
+        "test:unit": "pest --colors=always --coverage --parallel --min=100",
+        "test": [
+            "@test:unit",
+            "@test:lint",
+            "@test:types",
+            "@test:refactor"
+        ]
     }
 }
