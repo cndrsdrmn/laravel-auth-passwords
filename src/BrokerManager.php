@@ -8,12 +8,14 @@ use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use InvalidArgumentException;
+use Override;
 
 final class BrokerManager extends PasswordBrokerManager
 {
     /**
      * Create a token repository instance based on the given configuration.
      */
+    #[Override]
     protected function createTokenRepository(array $config): TokenRepositoryInterface
     {
         if (isset($config['driver']) && $config['driver'] === 'cache') {
@@ -43,6 +45,7 @@ final class BrokerManager extends PasswordBrokerManager
      *
      * @throws InvalidArgumentException
      */
+    #[Override]
     protected function resolve($name): PasswordBroker
     {
         $config = $this->getConfig($name);

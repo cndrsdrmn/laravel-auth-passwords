@@ -8,12 +8,15 @@ use Cndrsdrmn\PhpStringFormatter\StringFormatter;
 use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Str;
+use Override;
+use SensitiveParameter;
 
 final class TokenRepository extends DatabaseTokenRepository implements TokenRepositoryInterface
 {
     /**
      * Create a new token for the user.
      */
+    #[Override]
     public function createNewToken(): string
     {
         return StringFormatter::numerify(Str::padBoth('', 6, '#'));
@@ -24,6 +27,7 @@ final class TokenRepository extends DatabaseTokenRepository implements TokenRepo
      *
      * @param  string  $token
      */
+    #[Override]
     public function exists(CanResetPasswordContract $user, $token): bool
     {
         $record = $this->getRecord($user, true);
@@ -34,7 +38,7 @@ final class TokenRepository extends DatabaseTokenRepository implements TokenRepo
     /**
      * Mark a token of password resets is verified.
      */
-    public function markVerified(CanResetPasswordContract $user, string $token): bool
+    public function markVerified(CanResetPasswordContract $user, #[SensitiveParameter] string $token): bool
     {
         $record = $this->getRecord($user, false);
 

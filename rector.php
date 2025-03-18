@@ -3,12 +3,10 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Strict\Rector\Ternary\DisallowedShortTernaryRuleFixerRector;
 
 return RectorConfig::configure()
     ->withSkip([
-        ClosureToArrowFunctionRector::class,
         DisallowedShortTernaryRuleFixerRector::class,
     ])
     ->withPaths([

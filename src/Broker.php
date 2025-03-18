@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cndrsdrmn\LaravelPasswords;
 
 use Illuminate\Auth\Passwords\PasswordBroker;
+use SensitiveParameter;
 
 final class Broker extends PasswordBroker implements BrokerInterface
 {
@@ -20,7 +21,7 @@ final class Broker extends PasswordBroker implements BrokerInterface
      *
      * @param  array{email: string, token: string}  $credentials
      */
-    public function markVerified(array $credentials): string
+    public function markVerified(#[SensitiveParameter] array $credentials): string
     {
         if (is_null($user = $this->getUser($credentials))) {
             return self::INVALID_USER;
