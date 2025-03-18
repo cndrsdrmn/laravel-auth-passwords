@@ -31,14 +31,6 @@ jobs:
         env:
           VERSION: ${{ inputs.version }}
 
-      - name: Update Failure.php version
-        run: sed -i "s/const VERSION = '.*';/const VERSION = '${{ steps.version.outputs.version }}';/g" src/Failure.php
-
-      - name: Commit version change
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update version to v${{ steps.version.outputs.version }}"
-
       - name: Generate release notes
         id: generated-notes
         uses: RedCrafter07/release-notes-action@main
@@ -87,29 +79,3 @@ jobs:
           body: ${{ steps.cleaned-notes.outputs.notes }}
           target_commitish: ${{ github.ref_name }}
           make_latest: "${{ github.ref_name == github.event.repository.default_branch }}"
-
-  update-changelog:
-    needs: release
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-
-      - name: Update Changelog
-        uses: stefanzweifel/changelog-updater-action@v1
-        with:
-          latest-version: "v${{ needs.release.outputs.version }}"
-          release-notes: ${{ needs.release.outputs.notes }}
-          compare-url-target-revision: ${{ github.ref_name }}
-          parse-github-usernames: true
-
-      - name: Commit updated CHANGELOG
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: ${{ github.ref_name }}
-          commit_message: Update CHANGELOG
-          file_pattern: CHANGELOG.md
