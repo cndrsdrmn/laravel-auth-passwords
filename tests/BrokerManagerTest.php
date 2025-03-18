@@ -20,10 +20,10 @@ test('create token repository with cache driver', function (): void {
     $repository = (fn () => $this->createTokenRepository($config));
 
     expect($repository->call($this->manager))->toBeInstanceOf(CacheTokenRepository::class);
-})->only();
+});
 
 test('throw an exception with invalid broker config', function (): void {
     $broker = fn () => $this->manager->broker('invalid');
 
     expect($broker)->toThrow(InvalidArgumentException::class, 'Password resetter [invalid] is not defined.');
-})->only();
+});

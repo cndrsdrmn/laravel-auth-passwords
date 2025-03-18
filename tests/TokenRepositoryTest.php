@@ -73,13 +73,13 @@ test('create new token', function (): void {
     expect($repository->createNewToken())
         ->toBeString()->toBeNumeric()
         ->toHaveLength(6);
-})->only();
+});
 
 test('mark verified return false with an exists record', function (): void {
     $repository = createTokenRepository(createFakeBuilder(null));
 
     expect($repository->markVerified(createFakeUser(), 'token'))->toBeFalse();
-})->only();
+});
 
 test('mark verified return false with invalid hashed token', function (): void {
     $repository = createTokenRepository(createFakeBuilder([
@@ -89,7 +89,7 @@ test('mark verified return false with invalid hashed token', function (): void {
     ]), createFakeHasher(['check' => false]));
 
     expect($repository->markVerified(createFakeUser(), 'invalid-token'))->toBeFalse();
-})->only();
+});
 
 test('mark verified return false with expired token', function (): void {
     $repository = createTokenRepository(createFakeBuilder([
@@ -99,7 +99,7 @@ test('mark verified return false with expired token', function (): void {
     ]));
 
     expect($repository->markVerified(createFakeUser(), 'token'))->toBeFalse();
-})->only();
+});
 
 test('mark verified return true', function (): void {
     $builder = createFakeBuilder([
@@ -115,7 +115,7 @@ test('mark verified return true', function (): void {
     $repository = createTokenRepository($builder);
 
     expect($repository->markVerified(createFakeUser(), 'token'))->toBeTrue();
-})->only();
+});
 
 test('exists will return false', function (): void {
     $repository = createTokenRepository(createFakeBuilder([
@@ -125,7 +125,7 @@ test('exists will return false', function (): void {
     ]));
 
     expect($repository->exists(createFakeUser(), 'token'))->toBeFalse();
-})->only();
+});
 
 test('exists will return true', function (): void {
     $repository = createTokenRepository(createFakeBuilder([
@@ -135,4 +135,4 @@ test('exists will return true', function (): void {
     ]));
 
     expect($repository->exists(createFakeUser(), 'token'))->toBeTrue();
-})->only();
+});

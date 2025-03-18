@@ -21,7 +21,7 @@ test('mark verified returns invalid user', function (): void {
     $broker = new Broker($repository, $users, $this->app['events']);
 
     expect($broker->markVerified(['email' => 'user@example.com']))->toBe(Broker::INVALID_USER);
-})->only();
+});
 
 test('mark verified returns verified token', function (): void {
     $users = Mockery::mock(UserProvider::class, ['retrieveByCredentials' => Mockery::mock(CanResetPassword::class)]);
@@ -30,7 +30,7 @@ test('mark verified returns verified token', function (): void {
     $broker = new Broker($repository, $users, $this->app['events']);
 
     expect($broker->markVerified(['email' => 'user@example.com', 'token' => 'token']))->toBe(Broker::VERIFIED_TOKEN);
-})->only();
+});
 
 test('mark verified returns unverified token', function (): void {
     $users = Mockery::mock(UserProvider::class, ['retrieveByCredentials' => Mockery::mock(CanResetPassword::class)]);
@@ -39,4 +39,4 @@ test('mark verified returns unverified token', function (): void {
     $broker = new Broker($repository, $users, $this->app['events']);
 
     expect($broker->markVerified(['email' => 'user@example.com', 'token' => 'token']))->toBe(Broker::UNVERIFIED_TOKEN);
-})->only();
+});

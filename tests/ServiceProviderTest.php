@@ -18,4 +18,4 @@ it('package should be loaded properly', function (): void {
     expect($manage)->toBeInstanceOf(BrokerManager::class)
         ->broker()->toBeInstanceOf(BrokerInterface::class)
         ->getRepository()->toBeInstanceOf(TokenRepositoryInterface::class);
-})->only();
+});
